@@ -1,7 +1,6 @@
 package com.icesi.businessDelegate;
 
 import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,38 +19,39 @@ public class AdminDelegate {
 	
 	private static final String BASE_URL = "http://localhost:8080/";
 	
-	//Business Entities
 	//
+	// Business Entities
 	//----------------------------------------------------
 	//
 	
-	public Businessentity getEntity(long id) {
+	public BusinessEntity getEntity(long id) {
 		String url = BASE_URL+"entities/"+id;
-		Businessentity entity = template.getForObject(url, Businessentity.class);
+		BusinessEntity entity = template.getForObject(url, BusinessEntity.class);
 		return entity;
 	}
 	
-	public Iterable<Businessentity> getAllEntities(){
+	public Iterable<BusinessEntity> getAllEntities(){
 		String url = BASE_URL+"entities";
-		Businessentity[] entities = template.getForObject(url, Businessentity[].class);
+		BusinessEntity[] entities = template.getForObject(url, BusinessEntity[].class);
 		return Arrays.asList(entities);
 	}
 	
-	public String createEntity(Businessentity be) {
+	public String createEntity(BusinessEntity be) {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	    HttpEntity<Businessentity> entity = new HttpEntity<Businessentity>(be,headers);
+	    HttpEntity<BusinessEntity> entity = new HttpEntity<BusinessEntity>(be,headers);
 	    return template.exchange(
 	    		BASE_URL+"entities", HttpMethod.POST, entity, String.class).getBody();
 	}
 	
-	public String updateEntity(long id, @Validated(BasicInfo.class) Businessentity be) {
+	public String updateEntity(long id, @Validated(BasicInfo.class) BusinessEntity be) {
 	      HttpHeaders headers = new HttpHeaders();
 	      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	      HttpEntity<Businessentity> entity = new HttpEntity<Businessentity>(be,headers);
+	      HttpEntity<BusinessEntity> entity = new HttpEntity<BusinessEntity>(be,headers);
 	      return template.exchange(
 	    		  BASE_URL+"entities/"+id, HttpMethod.PUT, entity, String.class).getBody();
 	}
+	
 	
 	//Persons
 	//
@@ -110,30 +110,30 @@ public class AdminDelegate {
 	//----------------------------------------------------
 	//
 	
-	public Stateprovince getState(Integer id){
+	public StateProvince getState(Integer id){
 		String url = BASE_URL+"states/"+id;
-		Stateprovince sp = template.getForObject(url, Stateprovince.class);
+		StateProvince sp = template.getForObject(url, StateProvince.class);
 		return sp;
 	}
 	
-	public Iterable<Stateprovince> getAllStates(){
+	public Iterable<StateProvince> getAllStates(){
 		String url = BASE_URL+"states";
-		Stateprovince[] sp = template.getForObject(url, Stateprovince[].class);
+		StateProvince[] sp = template.getForObject(url, StateProvince[].class);
 		return Arrays.asList(sp);
 	}
 	
-	public String createState(Stateprovince sp) {
+	public String createState(StateProvince sp) {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	    HttpEntity<Stateprovince> entity = new HttpEntity<Stateprovince>(sp,headers);
+	    HttpEntity<StateProvince> entity = new HttpEntity<StateProvince>(sp,headers);
 	    return template.exchange(
 	    		BASE_URL+"states", HttpMethod.POST, entity, String.class).getBody();
 	}
 	
-	public String updateState(Integer id, @Validated(BasicInfo.class) Stateprovince sp) {
+	public String updateState(Integer id, @Validated(BasicInfo.class) StateProvince sp) {
 	      HttpHeaders headers = new HttpHeaders();
 	      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	      HttpEntity<Stateprovince> entity = new HttpEntity<Stateprovince>(sp,headers);
+	      HttpEntity<StateProvince> entity = new HttpEntity<StateProvince>(sp,headers);
 	      return template.exchange(
 	    		  BASE_URL+"states/"+id, HttpMethod.PUT, entity, String.class).getBody();
 	}

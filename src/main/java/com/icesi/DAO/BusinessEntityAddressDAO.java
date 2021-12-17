@@ -9,45 +9,45 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.icesi.model.Businessentityaddress;
+import com.icesi.model.BusinessEntityAddress;
 
 @Repository
 @Transactional
-public class BusinessEntityAddressDAO implements Dao<Businessentityaddress> {
+public class BusinessEntityAddressDAO implements Dao<BusinessEntityAddress> {
 	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
-	public Optional<Businessentityaddress> get(Integer id) {
-		return Optional.ofNullable(em.find(Businessentityaddress.class, id));
+	public Optional<BusinessEntityAddress> get(Integer id) {
+		return Optional.ofNullable(em.find(BusinessEntityAddress.class, id));
 	}
 
 	@Override
-	public Optional<Businessentityaddress> get(long id) {
-		return Optional.ofNullable(em.find(Businessentityaddress.class, id));
+	public Optional<BusinessEntityAddress> get(long id) {
+		return Optional.ofNullable(em.find(BusinessEntityAddress.class, id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Businessentityaddress> getAll() {
+	public List<BusinessEntityAddress> getAll() {
 		Query query = em.createQuery("SELECT e FROM Businessentityaddress e");
         return query.getResultList();
 	}
 
 	@Override
-	public void save(Businessentityaddress t) {
+	public void save(BusinessEntityAddress t) {
 		em.persist(t);
 		
 	}
 
 	@Override
-	public void update(Businessentityaddress t) {
+	public void update(BusinessEntityAddress t) {
 		em.merge(t);
 	}
 
 	@Override
-	public void delete(Businessentityaddress t) {
+	public void delete(BusinessEntityAddress t) {
 		em.remove(t);
 	}
 

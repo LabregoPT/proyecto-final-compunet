@@ -6,17 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-
-import com.icesi.model.Addresstype;
-import com.icesi.model.BasicInfo;
-import com.icesi.model.Businessentityaddress;
-import com.icesi.model.Personphone;
-import com.icesi.model.Phonenumbertype;
+import org.springframework.http.*;
+import com.icesi.model.*;
 
 @Component
 public class UserDelegate {
@@ -30,30 +21,30 @@ public class UserDelegate {
 	//
 	// ----------------------------------------------------
 	//
-	public Businessentityaddress getEntity(Integer id) {
+	public BusinessEntityAddress getEntity(Integer id) {
 		String url = BASE_URL + "baddresses/" + id;
-		Businessentityaddress bea = template.getForObject(url, Businessentityaddress.class);
+		BusinessEntityAddress bea = template.getForObject(url, BusinessEntityAddress.class);
 		return bea;
 	}
 
-	public Iterable<Businessentityaddress> getAllEntities() {
+	public Iterable<BusinessEntityAddress> getAllEntities() {
 		String url = BASE_URL + "baddresses";
-		Businessentityaddress[] bea = template.getForObject(url, Businessentityaddress[].class);
+		BusinessEntityAddress[] bea = template.getForObject(url, BusinessEntityAddress[].class);
 		return Arrays.asList(bea);
 	}
 
-	public String createEntityAddress(Businessentityaddress bea) {
+	public String createEntityAddress(BusinessEntityAddress bea) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Businessentityaddress> entity = new HttpEntity<Businessentityaddress>(bea, headers);
+		HttpEntity<BusinessEntityAddress> entity = new HttpEntity<BusinessEntityAddress>(bea, headers);
 
 		return template.exchange(BASE_URL + "baddresses", HttpMethod.POST, entity, String.class).getBody();
 	}
 
-	public String updateEntity(Integer id, @Validated(BasicInfo.class) Businessentityaddress bea) {
+	public String updateEntity(Integer id, @Validated(BasicInfo.class) BusinessEntityAddress bea) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Businessentityaddress> entity = new HttpEntity<Businessentityaddress>(bea, headers);
+		HttpEntity<BusinessEntityAddress> entity = new HttpEntity<BusinessEntityAddress>(bea, headers);
 
 		return template.exchange(BASE_URL + "baddresses/" + id, HttpMethod.PUT, entity, String.class).getBody();
 	}
@@ -62,15 +53,15 @@ public class UserDelegate {
 	//
 	// ----------------------------------------------------
 	//
-	public Iterable<Phonenumbertype> getAllPhoneTypes() {
+	public Iterable<PhoneNumberType> getAllPhoneTypes() {
 		String url = BASE_URL + "phonetypes";
-		Phonenumbertype[] pnt = template.getForObject(url, Phonenumbertype[].class);
+		PhoneNumberType[] pnt = template.getForObject(url, PhoneNumberType[].class);
 		return Arrays.asList(pnt);
 	}
 
-	public Iterable<Addresstype> getAllAddressTypes() {
+	public Iterable<AddressType> getAllAddressTypes() {
 		String url = BASE_URL + "addresstypes";
-		Addresstype[] adt = template.getForObject(url, Addresstype[].class);
+		AddressType[] adt = template.getForObject(url, AddressType[].class);
 		return Arrays.asList(adt);
 	}
 
@@ -78,48 +69,44 @@ public class UserDelegate {
 	//
 	// ----------------------------------------------------
 	//
-	public Personphone getPhone(Integer id) {
+	public Phone getPhone(Integer id) {
 		String url = BASE_URL + "phones/" + id;
-		Personphone pp = template.getForObject(url, Personphone.class);
-		return pp;
+		Phone p = template.getForObject(url, Phone.class);
+		return p;
 	}
 
-	public Iterable<Personphone> getAllPhones() {
+	public Iterable<Phone> getAllPhones() {
 		String url = BASE_URL + "phones";
-		Personphone[] pp = template.getForObject(url, Personphone[].class);
-		return Arrays.asList(pp);
+		return Arrays.asList(template.getForObject(url, Phone[].class));
 	}
 
-	public Iterable<Personphone> getAllPhonesByPref(String pref) {
+	public Iterable<Phone> getAllPhonesByPref(String pref) {
 		String url = BASE_URL + "phones/pref=" + pref;
-		Personphone[] pp = template.getForObject(url, Personphone[].class);
-		return Arrays.asList(pp);
+		return Arrays.asList(template.getForObject(url, Phone[].class));
 	}
 
-	public Iterable<Personphone> getAllPhonesByTypes() {
+	public Iterable<Phone> getAllPhonesByTypes() {
 		String url = BASE_URL + "phones/list";
-		Personphone[] pp = template.getForObject(url, Personphone[].class);
+		return Arrays.asList(template.getForObject(url, Phone[].class));
+	}
+	
+	public Iterable<Phone> getAllPhonesByTypes(String type) {
+		String url = BASE_URL + "phones/type=" + type;
+		Phone[] pp = template.getForObject(url, Phone[].class);
 		return Arrays.asList(pp);
 	}
-
-	public String createPhone(Personphone pp) {
+	
+	public String createPhone(Phone pp) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Personphone> entity = new HttpEntity<Personphone>(pp, headers);
-
+		HttpEntity<Phone> entity = new HttpEntity<Phone>(pp, headers);
 		return template.exchange(BASE_URL + "phones", HttpMethod.POST, entity, String.class).getBody();
 	}
 
-	public Iterable<Personphone> getAllPhonesByTypes(String type) {
-		String url = BASE_URL + "phones/type=" + type;
-		Personphone[] pp = template.getForObject(url, Personphone[].class);
-		return Arrays.asList(pp);
-	}
-
-	public String updatePhone(Integer id, @Validated(BasicInfo.class) Personphone pp) {
+	public String updatePhone(Integer id, @Validated(BasicInfo.class) Phone pp) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Personphone> entity = new HttpEntity<Personphone>(pp, headers);
+		HttpEntity<Phone> entity = new HttpEntity<Phone>(pp, headers);
 
 		return template.exchange(BASE_URL + "phones/" + id, HttpMethod.PUT, entity, String.class).getBody();
 	}

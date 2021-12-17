@@ -1,11 +1,7 @@
 package com.icesi.serviceDAO;
 
-
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.icesi.DAO.BusinessEntityDAO;
 import com.icesi.DAO.PersonDAO;
 import com.icesi.model.Person;
@@ -60,22 +56,12 @@ public class PersonService {
 		modPerson.setLastname(person.getLastname());
 		modPerson.setTitle(person.getTitle());
 		modPerson.setBusinessentity(beRepository.get(person.getBusinessentity().getBusinessentityid()).get());
-
 		personRepository.update(modPerson);
 	}
 	
 	
-	public Iterable<Person> findAllById(long id) {
-		ArrayList<Person> persons = (ArrayList<Person>) personRepository.getAll();
-		String name = beRepository.get(id).get().getName();
-		ArrayList<Person> toReturn = new ArrayList<Person>();
-		
-		for (Person person : persons) {
-			if(person.getBusinessentity().getName().equals(name)) {
-				toReturn.add(person);
-			}
-		}
-		return toReturn;
+	public Iterable<Person> findByEntityId(long id) {
+		return personRepository.getByID(id);
 	}
 	
 

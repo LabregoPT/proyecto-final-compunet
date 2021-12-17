@@ -9,45 +9,44 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.icesi.model.Stateprovince;
+import com.icesi.model.StateProvince;
 
 @Repository
 @Transactional
-public class StateProvinceDAO implements Dao<Stateprovince>{
+public class StateProvinceDAO implements Dao<StateProvince>{
 	
 	@PersistenceContext 
 	private EntityManager em;
 	   
 	@Override
-	public Optional<Stateprovince> get(Integer id) {
-		return Optional.ofNullable(em.find(Stateprovince.class, id));
+	public Optional<StateProvince> get(Integer id) {
+		return Optional.ofNullable(em.find(StateProvince.class, id));
 	}
 
 	@Override
-	public Optional<Stateprovince> get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<StateProvince> get(long id) {
+		return Optional.ofNullable(em.find(StateProvince.class, id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Stateprovince> getAll() {
+	public List<StateProvince> getAll() {
 		Query query = em.createQuery("SELECT e FROM Stateprovince e");
         return query.getResultList();
 	}
 
 	@Override
-	public void save(Stateprovince t) {
+	public void save(StateProvince t) {
 		em.persist(t);
 	}
 
 	@Override
-	public void update(Stateprovince t) {
+	public void update(StateProvince t) {
 		em.merge(t);
 	}
 
 	@Override
-	public void delete(Stateprovince t) {
+	public void delete(StateProvince t) {
 		em.remove(t);
 	}
 }

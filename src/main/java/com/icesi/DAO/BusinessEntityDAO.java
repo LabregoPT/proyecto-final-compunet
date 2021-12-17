@@ -9,53 +9,53 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.icesi.model.Businessentity;
+import com.icesi.model.BusinessEntity;
 
 @Repository
 @Transactional
-public class BusinessEntityDAO implements Dao<Businessentity>{
+public class BusinessEntityDAO implements Dao<BusinessEntity>{
 	
 	
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
-	public Optional<Businessentity> get(Integer id) {
-		return Optional.ofNullable(em.find(Businessentity.class, id));
+	public Optional<BusinessEntity> get(Integer id) {
+		return Optional.ofNullable(em.find(BusinessEntity.class, id));
 	}
 
 	@Override
-	public Optional<Businessentity> get(long id) {
-		return Optional.ofNullable(em.find(Businessentity.class, id));
+	public Optional<BusinessEntity> get(long id) {
+		return Optional.ofNullable(em.find(BusinessEntity.class, id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Businessentity> getAll() {
-		Query q = em.createNamedQuery("Businessentity.findAll");
+	public List<BusinessEntity> getAll() {
+		Query q = em.createQuery("SELECT b from BusinessEntity b");
         return q.getResultList();
 	}
 
 	@Override
-	public void save(Businessentity t) {
+	public void save(BusinessEntity t) {
 		em.persist(t);
 	}
 	
 	
 
 	@Override
-	public void update(Businessentity t) {
+	public void update(BusinessEntity t) {
 	    em.merge(t);
 	}
 
 
 	public void delete(long id) {
-		Businessentity t = em.find(Businessentity.class, id);
+		BusinessEntity t = em.find(BusinessEntity.class, id);
 	    em.remove(t);
 	}
 
 	@Override
-	public void delete(Businessentity t) {
+	public void delete(BusinessEntity t) {
 		em.remove(t);
 	}
 

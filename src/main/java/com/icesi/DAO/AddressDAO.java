@@ -14,7 +14,7 @@ import com.icesi.model.Address;
 @Repository
 @Transactional
 public class AddressDAO implements Dao<Address> {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -32,7 +32,13 @@ public class AddressDAO implements Dao<Address> {
 	@Override
 	public List<Address> getAll() {
 		Query query = em.createQuery("SELECT e FROM Address e");
-        return query.getResultList();
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Address> findByDate(String date) {
+		Query query = em.createQuery("SELECT e FROM Address e WHERE modifieddate = " + "\'" + date + "\'");
+		return query.getResultList();
 	}
 
 	@Override
@@ -44,10 +50,10 @@ public class AddressDAO implements Dao<Address> {
 	public void update(Address t) {
 		em.merge(t);
 	}
-	
+
 	@Override
 	public void delete(Address t) {
 		em.remove(t);
 	}
-	
+
 }

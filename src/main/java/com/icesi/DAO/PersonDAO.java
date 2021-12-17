@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.icesi.model.Businessentity;
+import com.icesi.model.BusinessEntity;
 import com.icesi.model.Person;
 
 @Repository
@@ -61,6 +61,12 @@ public class PersonDAO implements Dao<Person>{
 		Query query = em.createQuery("SELECT e FROM Person e WHERE personid="+id);
         return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Person> getByBEId(long id){
+		Query query = em.createNativeQuery("SELECT e FROM Person e WHERE businessentity_businessentityid="+id);
+		return query.getResultList();
+	}
 
 	@Override
 	public void save(Person t) {
@@ -78,7 +84,7 @@ public class PersonDAO implements Dao<Person>{
 	}
 	
 	public void delete(long id) {
-		Businessentity t = em.find(Businessentity.class, id);
+		BusinessEntity t = em.find(BusinessEntity.class, id);
 	    em.remove(t);
 	}
 

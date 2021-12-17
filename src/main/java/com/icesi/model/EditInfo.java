@@ -1,5 +1,5 @@
 package com.icesi.model;
 
-public interface editInfo {
+public interface EditInfo {
 
 }

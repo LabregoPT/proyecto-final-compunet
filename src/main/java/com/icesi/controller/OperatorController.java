@@ -37,7 +37,7 @@ public class OperatorController {
 
 	@GetMapping("/user/business/AddB")
 	public String addBusiness(Model model) {
-		model.addAttribute("businessentityaddress", new Businessentityaddress());
+		model.addAttribute("businessentityaddress", new BusinessEntityAddress());
 		model.addAttribute("businessentities", da.getAllEntities());
 		model.addAttribute("addresstypes", du.getAllAddressTypes());
 		model.addAttribute("addresses", da.getAllAddresses());
@@ -46,7 +46,7 @@ public class OperatorController {
 	
 	
 	@PostMapping("/user/business/AddB")
-	public String saveBusiness(@Validated(BasicInfo.class) Businessentityaddress bea, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
+	public String saveBusiness(@Validated(BasicInfo.class) BusinessEntityAddress bea, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
 		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("businessentityaddresses", du.getAllEntities());
@@ -61,7 +61,7 @@ public class OperatorController {
 	
 	@GetMapping("/user/business/editB/{id}")
 	public String showUpdateForm3(@PathVariable("id") Integer id, Model model) {
-		Businessentityaddress bea  = du.getEntity(id);
+		BusinessEntityAddress bea  = du.getEntity(id);
 		if (bea == null)
 			throw new IllegalArgumentException("Invalid user Id:" + id);
 		
@@ -74,7 +74,7 @@ public class OperatorController {
 	
 	@PostMapping("/user/business/editB/{id}")
 	public String updateBusiness(@PathVariable("id") Integer id,
-			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) Businessentityaddress bea, BindingResult bindingResult, Model model) {
+			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) BusinessEntityAddress bea, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("businessentityaddresses", du.getAllEntities());
 			return "users/indexBusiness";
@@ -100,14 +100,14 @@ public class OperatorController {
 	
 	@GetMapping("/user/phones/AddP")
 	public String addPhone(Model model) {
-		model.addAttribute("personphone", new Personphone());
+		model.addAttribute("personphone", new Phone());
 		model.addAttribute("persons", da.getPersons());
 		model.addAttribute("phonenumbertypes", du.getAllPhoneTypes());
 		return "users/addPhone";
 	}
 	
 	@PostMapping("/user/phones/AddP")
-	public String savePhone(@Validated(BasicInfo.class) Personphone phone, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
+	public String savePhone(@Validated(BasicInfo.class) Phone phone, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("persons", da.getPersons());
 			model.addAttribute("phonenumbertypes", du.getAllPhoneTypes());
@@ -121,7 +121,7 @@ public class OperatorController {
 	
 	@GetMapping("/user/phones/editP/{id}")
 	public String showUpdateForm4(@PathVariable("id") Integer id, Model model) {
-		Personphone phone = du.getPhone(id);
+		Phone phone = du.getPhone(id);
 		if (phone == null)
 			throw new IllegalArgumentException("Invalid user Id:" + id);
 		
@@ -133,7 +133,7 @@ public class OperatorController {
 	
 	@PostMapping("/user/phones/editP/{id}")
 	public String updatePhone(@PathVariable("id") Integer id,
-			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) Personphone phone, BindingResult bindingResult, Model model) {
+			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) Phone phone, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("persons", da.getPersons());
 			model.addAttribute("phonenumbertypes", du.getAllPhoneTypes());

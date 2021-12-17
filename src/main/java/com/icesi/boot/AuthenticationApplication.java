@@ -10,12 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.RestTemplate;
 
-import com.icesi.model.Addresstype;
-import com.icesi.model.Phonenumbertype;
-import com.icesi.model.Stateprovince;
-import com.icesi.repository.AddressTypeRepository;
-import com.icesi.repository.PhoneNumberTypeRepository;
-import com.icesi.repository.StateProvinceRepository;
+import com.icesi.model.*;
+import com.icesi.repository.*;
 
 
 @SpringBootApplication
@@ -34,11 +30,11 @@ public class AuthenticationApplication {
 	
 	//Generación de datos iniciales
 	@Bean
-	public CommandLineRunner add(AddressTypeRepository adtRepository, PhoneNumberTypeRepository pntRepository, StateProvinceRepository sp) {
+	public CommandLineRunner add(AddressTypeRepository adtRepository, PhoneNumberTypeRepository pntRepository, StateProvinceRepository sp, BusinessEntityRepository ep) {
 		return (args) -> {
-			Addresstype a1 = new Addresstype();
-			Addresstype a2 = new Addresstype();
-			Addresstype a3 = new Addresstype();
+			AddressType a1 = new AddressType();
+			AddressType a2 = new AddressType();
+			AddressType a3 = new AddressType();
 			a1.setName("Calle");
 			a2.setName("Carrera");
 			a3.setName("Avenida");
@@ -48,18 +44,21 @@ public class AuthenticationApplication {
 			adtRepository.save(a3);
 			
 			
-			Phonenumbertype p1 = new Phonenumbertype();
-			Phonenumbertype p2 = new Phonenumbertype();
-			p1.setName("Telefono Movil");
-			p2.setName("Telefono Fijo");
+			PhoneNumberType p1 = new PhoneNumberType();
+			PhoneNumberType p2 = new PhoneNumberType();
+			p1.setName("Movil");
+			p2.setName("Fijo");
 			
 			pntRepository.save(p1);
 			pntRepository.save(p2);
 			
-			Stateprovince stp = new Stateprovince();
+			StateProvince stp = new StateProvince();
 			stp.setName("Valle del Cauca");
 			sp.save(stp);
 			
+			BusinessEntity b1 = new BusinessEntity();
+			b1.setName("Entidad1");
+			ep.save(b1);
 		};
 	}
 
