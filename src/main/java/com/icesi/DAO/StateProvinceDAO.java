@@ -31,7 +31,7 @@ public class StateProvinceDAO implements Dao<StateProvince>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<StateProvince> getAll() {
-		Query query = em.createQuery("SELECT e FROM Stateprovince e");
+		Query query = em.createQuery("SELECT e FROM StateProvince e");
         return query.getResultList();
 	}
 

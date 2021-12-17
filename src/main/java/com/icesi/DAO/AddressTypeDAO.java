@@ -29,7 +29,7 @@ public class AddressTypeDAO implements Dao<AddressType>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AddressType> getAll() {
-		Query query = em.createQuery("SELECT e FROM Addresstype e");
+		Query query = em.createQuery("SELECT e FROM AddressType e");
         return query.getResultList();
 	}
 

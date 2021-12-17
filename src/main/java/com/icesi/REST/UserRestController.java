@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.icesi.model.*;
 import com.icesi.serviceDAO.*;
 
+@RestController
 public class UserRestController {
 
 	private BusinessEntityAddressService beaService;
 	private PhoneService phoneService;
 	private AddressTypeService adtService;
-	
-	
+
 	@Autowired
 	public UserRestController(BusinessEntityAddressService beaService, AddressTypeService adtService,
 			PhoneService phoneService) {
@@ -29,28 +30,31 @@ public class UserRestController {
 		this.adtService = adtService;
 		this.phoneService = phoneService;
 	}
-	
-	//BUSINESS ENTITY ADDRESS
-	//----------------------------------------------------------------------------------------------
+
+	// Business Entity
+	//
+	// ----------------------------------------------------
+	//
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/baddresses", method = RequestMethod.GET)
 	public ResponseEntity<BusinessEntityAddress> listEntitiesAddresses() {
 		List<BusinessEntityAddress> entities = ((List<BusinessEntityAddress>) beaService.findAll());
 		return new ResponseEntity(entities, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/baddresses/{id}", method = RequestMethod.GET)
 	public ResponseEntity<BusinessEntityAddress> getEntityAddress(@PathVariable(value = "id") Integer id) {
 		BusinessEntityAddress bea = beaService.findById(id).get();
 		return new ResponseEntity<BusinessEntityAddress>(bea, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/baddresses", method = RequestMethod.POST)
-	public ResponseEntity<BusinessEntityAddress> createEntityAddress(@Validated(BasicInfo.class) @RequestBody BusinessEntityAddress bea) {
+	public ResponseEntity<BusinessEntityAddress> createEntityAddress(
+			@Validated(BasicInfo.class) @RequestBody BusinessEntityAddress bea) {
 		beaService.save(bea);
 		return new ResponseEntity<BusinessEntityAddress>(bea, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/baddresses/{id}")
 	public ResponseEntity<BusinessEntityAddress> updateEntityAddress(@PathVariable(value = "id") Integer id,
 			@Validated(BasicInfo.class) @RequestBody BusinessEntityAddress bea) {
@@ -58,77 +62,66 @@ public class UserRestController {
 		beaService.update(bea);
 		return ResponseEntity.ok(bea);
 	}
-	
-	/*
-	
-	//AUX TYPES
-	//----------------------------------------------------------------------------------------------
-	
+
+	// Display Types
+	//
+	// ----------------------------------------------------
+	//
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/phonetypes", method = RequestMethod.GET)
-	public ResponseEntity<Phonenumbertype> listPhoneTypes() {
-		List<Phonenumbertype> types = ((List<Phonenumbertype>)pntService.findAll());
+	public ResponseEntity<PhoneNumberType> listPhoneTypes() {
+		List<PhoneNumberType> types = ((List<PhoneNumberType>) phoneService.findAllTypes());
 		return new ResponseEntity(types, HttpStatus.OK);
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	@RequestMapping(value = "/addresstypes", method = RequestMethod.GET)
-	public ResponseEntity<Addresstype> listAddressTypes() {
-		List<Addresstype> types = ((List<Addresstype>)adtService.findAll());
+	public ResponseEntity<AddressType> listAddressTypes() {
+		List<AddressType> types = ((List<AddressType>) adtService.findAll());
 		return new ResponseEntity(types, HttpStatus.OK);
 	}
-	
-	//PERSON PHONE
-	//----------------------------------------------------------------------------------------------
-	
+
+	// Persons Phones
+	// ---------------------------------------------------------------------------
+
 	@RequestMapping(value = "/phones/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Personphone> getPhone(@PathVariable(value = "id") Integer id) {
-		Personphone pp = phoneService.findById(id).get();
-		return new ResponseEntity<Personphone>(pp, HttpStatus.OK);
+	public ResponseEntity<Phone> getPhone(@PathVariable(value = "id") Integer id) {
+		Phone pp = phoneService.findById(id).get();
+		return new ResponseEntity<Phone>(pp, HttpStatus.OK);
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/phones", method = RequestMethod.GET)
-	public ResponseEntity<Personphone> listPhones() {
-		List<Personphone> entities = ((List<Personphone>) phoneService.findAll());
+	public ResponseEntity<Phone> listPhones() {
+		List<Phone> entities = ((List<Phone>) phoneService.findAll());
 		return new ResponseEntity(entities, HttpStatus.OK);
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/phones/pref={pref}", method = RequestMethod.GET)
-	public ResponseEntity<Personphone> listPhonesByPreg(@PathVariable(value = "pref") String pref) {
-		List<Personphone> entities = ((List<Personphone>) phoneService.findByPref(pref));
+	public ResponseEntity<Phone> listPhonesByPreg(@PathVariable(value = "pref") String pref) {
+		List<Phone> entities = ((List<Phone>) phoneService.findByPrefix(pref));
 		return new ResponseEntity(entities, HttpStatus.OK);
 	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/phones/list", method = RequestMethod.GET)
-	public ResponseEntity<Personphone> listPhonesByTypes() {
-		List<Personphone> entities = ((List<Personphone>) phoneService.findAllTypes());
-		return new ResponseEntity(entities, HttpStatus.OK);
-	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/phones/type={type}", method = RequestMethod.GET)
-	public ResponseEntity<Personphone> listPhonesByTypes(@PathVariable(value = "type") String type) {
-		List<Personphone> entities = ((List<Personphone>) phoneService.findByType(type));
+	public ResponseEntity<Phone> listPhonesByTypes(@PathVariable(value = "type") String type) {
+		List<Phone> entities = ((List<Phone>) phoneService.findByType(type));
 		return new ResponseEntity(entities, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/phones", method = RequestMethod.POST)
-	public ResponseEntity<Personphone> createPhone(@Validated(BasicInfo.class) @RequestBody Personphone pp) {
-		phoneService.save(pp);
-		return new ResponseEntity<Personphone>(pp, HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/phones/{id}")
-	public ResponseEntity<Personphone> updatePhone(@PathVariable(value = "id") Integer id,
-			@Validated(BasicInfo.class) @RequestBody Personphone pp) {
 
+	@RequestMapping(value = "/phones", method = RequestMethod.POST)
+	public ResponseEntity<Phone> createPhone(@Validated(BasicInfo.class) @RequestBody Phone pp) {
+		phoneService.save(pp);
+		return new ResponseEntity<Phone>(pp, HttpStatus.CREATED);
+	}
+
+	@PutMapping("/phones/{id}")
+	public ResponseEntity<Phone> updatePhone(@PathVariable(value = "id") Integer id, @Validated(BasicInfo.class) @RequestBody Phone pp) {
 		phoneService.update(pp);
 		return ResponseEntity.ok(pp);
 	}
-	
-*/
-	
+
 }

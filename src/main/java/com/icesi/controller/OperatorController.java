@@ -1,6 +1,5 @@
 package com.icesi.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +17,8 @@ import com.icesi.model.*;
 public class OperatorController {
 
 	
-	UserDelegate du;
-	AdminDelegate da;
+	private UserDelegate du;
+	private AdminDelegate da;
 	
 	
 	@Autowired
@@ -30,7 +29,7 @@ public class OperatorController {
 	
 	@GetMapping("/user/business/")
     public String indexBusiness(Model model) {
-		model.addAttribute("businessentityaddresses", du.getAllEntities());
+		model.addAttribute("businessentityaddresses", du.getAllAdresses());
         return "users/indexBusiness";
     }
 	
@@ -47,15 +46,13 @@ public class OperatorController {
 	
 	@PostMapping("/user/business/AddB")
 	public String saveBusiness(@Validated(BasicInfo.class) BusinessEntityAddress bea, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
-		
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("businessentityaddresses", du.getAllEntities());
+			model.addAttribute("businessentityaddresses", du.getAllAdresses());
 			return "users/indexBusiness";
 		}
-		
 		if (!action.equals("Cancelar")) {
 			du.createEntityAddress(bea);
-		}	
+		}
 		return "redirect:/user/business/";
 	}
 	
@@ -76,13 +73,13 @@ public class OperatorController {
 	public String updateBusiness(@PathVariable("id") Integer id,
 			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) BusinessEntityAddress bea, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("businessentityaddresses", du.getAllEntities());
+			model.addAttribute("businessentityaddresses", du.getAllAdresses());
 			return "users/indexBusiness";
 		}
 		if (action != null && !action.equals("Cancel")) {
 			bea.setId(id);
 			du.updateEntity(id, bea);
-			model.addAttribute("businessentityaddresses", du.getAllEntities());
+			model.addAttribute("businessentityaddresses", du.getAllAdresses());
 		}
 		return "redirect:/user/business/";
 	}
@@ -92,7 +89,7 @@ public class OperatorController {
 	
 	@GetMapping("/user/phones/")
     public String indexPhones(Model model) {
-		model.addAttribute("personphones", du.getAllPhones());
+		model.addAttribute("phones", du.getAllPhones());
         return "users/indexPhone";
     }
 	
@@ -100,7 +97,7 @@ public class OperatorController {
 	
 	@GetMapping("/user/phones/AddP")
 	public String addPhone(Model model) {
-		model.addAttribute("personphone", new Phone());
+		model.addAttribute("phone", new Phone());
 		model.addAttribute("persons", da.getPersons());
 		model.addAttribute("phonenumbertypes", du.getAllPhoneTypes());
 		return "users/addPhone";
@@ -120,12 +117,12 @@ public class OperatorController {
 	}
 	
 	@GetMapping("/user/phones/editP/{id}")
-	public String showUpdateForm4(@PathVariable("id") Integer id, Model model) {
+	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		Phone phone = du.getPhone(id);
 		if (phone == null)
 			throw new IllegalArgumentException("Invalid user Id:" + id);
 		
-		model.addAttribute("personphone", phone);
+		model.addAttribute("phone", phone);
 		model.addAttribute("persons", da.getPersons());
 		model.addAttribute("phonenumbertypes", du.getAllPhoneTypes());
 		return "users/updatePhone";

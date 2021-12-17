@@ -27,7 +27,7 @@ public class BusinessEntityAddressService {
 	
 	public void save(BusinessEntityAddress bea) {
 		bea.setBusinessentity(beRepository.get(bea.getBusinessentity().getBusinessentityid()).get());
-		bea.setAddresstype(adtRepository.get(bea.getBusinessentity().getBusinessentityid()).get());
+		bea.setAddresstype(adtRepository.get(bea.getAddresstype().getAddresstypeid()).get());
 		bea.setAddress(adRepository.get(bea.getAddress().getAddressid()).get());
 		beaRepository.save(bea);
 	}

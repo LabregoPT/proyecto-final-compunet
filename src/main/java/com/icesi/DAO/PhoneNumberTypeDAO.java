@@ -31,7 +31,7 @@ public class PhoneNumberTypeDAO implements Dao<PhoneNumberType> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PhoneNumberType> getAll() {
-		Query query = entityManager.createQuery("SELECT e FROM Phonenumbertype e");
+		Query query = entityManager.createQuery("SELECT e FROM PhoneNumberType e");
         return query.getResultList();
 	}
 

@@ -32,6 +32,7 @@ public class BusinessEntity implements Serializable {
 	private Integer rowguid;
 
 	@OneToMany(mappedBy = "businessentity")
+	@JsonIgnore
 	private List<BusinessEntityAddress> bea;
 
 	@OneToOne(mappedBy = "businessentity")

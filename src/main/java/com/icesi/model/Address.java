@@ -41,7 +41,6 @@ public class Address implements Serializable {
 
 	private String spatiallocation;
 
-	// bi-directional many-to-one association to Stateprovince
 	@ManyToOne
 	@JoinColumn(name = "stateprovinceid")
 	@NotNull(groups = BasicInfo.class)

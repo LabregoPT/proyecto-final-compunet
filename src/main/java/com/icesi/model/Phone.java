@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
@@ -23,7 +24,7 @@ public class Phone implements Serializable {
 	@NotBlank(groups = BasicInfo.class)
 	@Size(min = 10, max = 10)
 	private String phonenumber;
-	
+
 	@ManyToOne
 	private Person person;
 	

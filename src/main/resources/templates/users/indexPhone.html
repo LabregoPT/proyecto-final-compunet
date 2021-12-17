@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div th:switch="${personphones}" class="container my-5">
+	<div th:switch="${phones}" class="container my-5">
 		<div class="row">
 			<div class="col-md-10">
 				<h2 th:case="null">Mr. Mcqueen no hay nadie!</h2>
@@ -34,14 +34,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="personphone : ${personphones}">
-								<td th:text="${personphone.id}"></td>
-								<td th:text="${personphone.person.firstname}"></td>
-								<td th:text="${personphone.phonenumbertype.name}"></td>
-								<td th:text="${personphone.phone}"></td>
-                                <td><a th:href="@{/user/phones/editP/{id}(id=${personphone.id})}"
+							<tr th:each="ph : ${phones}">
+								<td th:text="${ph.id}"></td>
+								<td th:text="${ph.person.firstname}"></td>
+								<td th:text="${ph.type.name}"></td>
+								<td th:text="${ph.phonenumber}"></td>
+                                <td><a th:href="@{/user/phones/editP/{id}(id=${ph.person.personid})}"
                                     class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>	
-                                <td><a th:href="@{/user/phones/delP/{id}(id=${personphone.id})}"
+                                <td><a th:href="@{/user/phones/delP/{id}(id=${ph.person.personid})}"
                                     class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
 							</tr>
 						</tbody>

@@ -35,7 +35,7 @@ public class PhoneDAO implements Dao<Phone> {
 
 	@SuppressWarnings("unchecked")
 	public List<PhoneNumberType> getTypes(){
-		Query query = em.createQuery("SELECT e FROM Phonenumbertype e");
+		Query query = em.createQuery("SELECT e FROM PhoneNumberType e");
 		return query.getResultList();
 	}
 	

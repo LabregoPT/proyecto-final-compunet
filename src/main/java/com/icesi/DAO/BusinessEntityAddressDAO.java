@@ -31,7 +31,7 @@ public class BusinessEntityAddressDAO implements Dao<BusinessEntityAddress> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BusinessEntityAddress> getAll() {
-		Query query = em.createQuery("SELECT e FROM Businessentityaddress e");
+		Query query = em.createQuery("SELECT e FROM BusinessEntityAddress e");
         return query.getResultList();
 	}
 

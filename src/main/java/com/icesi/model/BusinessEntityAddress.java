@@ -36,19 +36,14 @@ public class BusinessEntityAddress implements Serializable {
 	@ManyToOne
 	private BusinessEntity businessentity;
 	
-	@NotBlank(groups = BasicInfo.class)
 	private String nameb;
 	
-	@NotBlank(groups = BasicInfo.class)
 	private String namea;
 	
-	@NotBlank(groups = BasicInfo.class)
 	private String addressline1;
 	
-	@NotBlank(groups = BasicInfo.class)
 	private String city;
 	
-	@NotBlank(groups = BasicInfo.class)
 	private String postalcode;
 
 	public BusinessEntityAddress() {

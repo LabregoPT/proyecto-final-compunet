@@ -27,7 +27,7 @@ public class UserDelegate {
 		return bea;
 	}
 
-	public Iterable<BusinessEntityAddress> getAllEntities() {
+	public Iterable<BusinessEntityAddress> getAllAdresses() {
 		String url = BASE_URL + "baddresses";
 		BusinessEntityAddress[] bea = template.getForObject(url, BusinessEntityAddress[].class);
 		return Arrays.asList(bea);
@@ -37,8 +37,9 @@ public class UserDelegate {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<BusinessEntityAddress> entity = new HttpEntity<BusinessEntityAddress>(bea, headers);
-
-		return template.exchange(BASE_URL + "baddresses", HttpMethod.POST, entity, String.class).getBody();
+		
+		return template.exchange(
+				BASE_URL + "baddresses", HttpMethod.POST, entity, String.class).getBody();
 	}
 
 	public String updateEntity(Integer id, @Validated(BasicInfo.class) BusinessEntityAddress bea) {

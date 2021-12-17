@@ -70,6 +70,7 @@ public class Person implements Serializable {
 
 	@OneToOne
 	@NotNull(groups = BasicInfo.class)
+	@JsonIgnore
 	private BusinessEntity businessentity;
 	
 	@OneToMany(mappedBy = "person")

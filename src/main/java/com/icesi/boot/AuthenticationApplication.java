@@ -1,5 +1,7 @@
 package com.icesi.boot;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,7 +32,7 @@ public class AuthenticationApplication {
 	
 	//Generación de datos iniciales
 	@Bean
-	public CommandLineRunner add(AddressTypeRepository adtRepository, PhoneNumberTypeRepository pntRepository, StateProvinceRepository sp, BusinessEntityRepository ep) {
+	public CommandLineRunner add(AddressTypeRepository adtRepository, PhoneNumberTypeRepository pntRepository, StateProvinceRepository sp, BusinessEntityRepository ep, AddressRepository adp, PersonRepository pep) {
 		return (args) -> {
 			AddressType a1 = new AddressType();
 			AddressType a2 = new AddressType();
@@ -59,6 +61,20 @@ public class AuthenticationApplication {
 			BusinessEntity b1 = new BusinessEntity();
 			b1.setName("Entidad1");
 			ep.save(b1);
+			
+			Address ad1 = new Address();
+			ad1.setAddressline1("Calle 1");
+			ad1.setCity("Ciudad 1");
+			ad1.setPostalcode("121212");
+			adp.save(ad1);
+			
+			Person pe1 = new Person();
+			pe1.setBusinessentity(b1);
+			pe1.setFirstname("Pepito");
+			pe1.setLastname("Perez");
+			pe1.setTitle("Titulo");
+			pe1.setModifieddate(LocalDate.now());
+			pep.save(pe1);
 		};
 	}
 
