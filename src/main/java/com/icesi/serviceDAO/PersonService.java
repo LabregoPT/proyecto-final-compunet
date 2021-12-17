@@ -13,13 +13,13 @@ import com.icesi.model.Person;
 
 
 @Service
-public class PersonServiceImpDAO {
+public class PersonService {
 	
 	private PersonDAO personRepository;
 	private BusinessEntityDAO beRepository;
 
 	@Autowired
-	public PersonServiceImpDAO(PersonDAO personRepository,BusinessEntityDAO beRepository) {
+	public PersonService(PersonDAO personRepository,BusinessEntityDAO beRepository) {
 		this.personRepository = personRepository;
 		this.beRepository = beRepository;
 	}
@@ -36,6 +36,14 @@ public class PersonServiceImpDAO {
 	public void delete(Person person) {
 		personRepository.delete(person.getPersonid());
 
+	}
+	
+	public Iterable<Person> findByTitle(String title){
+		return personRepository.getByTittle(title);
+	}
+	
+	public Iterable<Person> findByInterval(String date1, String date2) {
+		return personRepository.getByDate(date1, date2);
 	}
 	
 	

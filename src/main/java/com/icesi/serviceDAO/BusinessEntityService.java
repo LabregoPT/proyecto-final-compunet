@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import com.icesi.DAO.BusinessEntityDAO;
 import com.icesi.model.Businessentity;
 @Service
-public class BusinessEntityServiceImpDAO {
+public class BusinessEntityService {
 	
 
 	private BusinessEntityDAO beRepository;
 
 	@Autowired
-	public BusinessEntityServiceImpDAO(BusinessEntityDAO beRepository) {
+	public BusinessEntityService(BusinessEntityDAO beRepository) {
 		this.beRepository = beRepository;
 	}
 	

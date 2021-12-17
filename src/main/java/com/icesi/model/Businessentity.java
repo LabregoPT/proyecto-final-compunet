@@ -13,11 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * The persistent class for the businessentity database table.
- *
- */
 @Entity
 @NamedQuery(name = "Businessentity.findAll", query = "SELECT b FROM Businessentity b")
 public class Businessentity implements Serializable {
@@ -45,6 +42,7 @@ public class Businessentity implements Serializable {
 
 	// bi-directional one-to-one association to Person
 	@OneToOne(mappedBy = "businessentity")
+	@JsonIgnore
 	private Person person;
 
 	public Businessentity() {
