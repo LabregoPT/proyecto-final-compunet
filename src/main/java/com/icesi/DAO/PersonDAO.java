@@ -20,44 +20,66 @@ public class PersonDAO implements Dao<Person>{
 	
 	
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager em;
 	   
 
 	@Override
 	public Optional<Person> get(Integer id) {
-		return Optional.ofNullable(entityManager.find(Person.class, id));
+		return Optional.ofNullable(em.find(Person.class, id));
 	}
 
 	@Override
 	public Optional<Person> get(long id) {
-		return Optional.ofNullable(entityManager.find(Person.class, id));
+		return Optional.ofNullable(em.find(Person.class, id));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Person> getAll() {
-		Query query = entityManager.createQuery("SELECT e FROM Person e");
+		Query query = em.createQuery("SELECT e FROM Person e");
+        return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Person> getByTittle(String title) {
+		Query query = em.createQuery("SELECT e FROM Person e WHERE title = "+ "\'"+title+"\'");
+        return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Person> getByDate(String date1,String date2) {
+		Query query = em.createQuery("SELECT e FROM Person e WHERE modifieddate BETWEEN " + "\'"+date1+"\'" 
+				+ " AND " + "\'"+date2+"\'" + " AND counter >= 1 ORDER BY lastname");
+        return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Person> getByID(long id) {
+		Query query = em.createQuery("SELECT e FROM Person e WHERE personid="+id);
         return query.getResultList();
 	}
 
 	@Override
 	public void save(Person t) {
-	    entityManager.persist(t);
+	    em.persist(t);
 	}
 
 	@Override
 	public void update(Person t) {
-	    entityManager.merge(t);
+	    em.merge(t);
 	}
 
 	@Override
 	public void delete(Person t) {
-		entityManager.remove(t);
+		em.remove(t);
 	}
 	
 	public void delete(long id) {
-		Businessentity t = entityManager.find(Businessentity.class, id);
-	    entityManager.remove(t);
+		Businessentity t = em.find(Businessentity.class, id);
+	    em.remove(t);
 	}
 
 

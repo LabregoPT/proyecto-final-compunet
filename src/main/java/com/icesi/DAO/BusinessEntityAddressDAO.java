@@ -12,43 +12,43 @@ import org.springframework.transaction.annotation.Transactional;
 import com.icesi.model.Businessentityaddress;
 
 @Repository
+@Transactional
 public class BusinessEntityAddressDAO implements Dao<Businessentityaddress> {
 	
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager em;
 	
 	@Override
 	public Optional<Businessentityaddress> get(Integer id) {
-		return Optional.ofNullable(entityManager.find(Businessentityaddress.class, id));
+		return Optional.ofNullable(em.find(Businessentityaddress.class, id));
 	}
 
 	@Override
 	public Optional<Businessentityaddress> get(long id) {
-		return Optional.ofNullable(entityManager.find(Businessentityaddress.class, id));
+		return Optional.ofNullable(em.find(Businessentityaddress.class, id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<Businessentityaddress> getAll() {
-		Query query = entityManager.createQuery("SELECT e FROM Businessentityaddress e");
+		Query query = em.createQuery("SELECT e FROM Businessentityaddress e");
         return query.getResultList();
 	}
 
 	@Override
 	public void save(Businessentityaddress t) {
-		entityManager.persist(t);
+		em.persist(t);
 		
 	}
 
 	@Override
 	public void update(Businessentityaddress t) {
-		entityManager.merge(t);
+		em.merge(t);
 	}
 
 	@Override
 	public void delete(Businessentityaddress t) {
-		entityManager.remove(t);
+		em.remove(t);
 	}
 
 }

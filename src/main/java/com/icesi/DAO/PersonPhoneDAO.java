@@ -7,46 +7,65 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.icesi.model.Personphone;
+import com.icesi.model.Phonenumbertype;
 @Repository
+@Transactional
 public class PersonPhoneDAO implements Dao<Personphone> {
 	
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager em;
 
 	@Override
 	public Optional<Personphone> get(Integer id) {
-		return Optional.ofNullable(entityManager.find(Personphone.class, id));
+		return Optional.ofNullable(em.find(Personphone.class, id));
 	}
 
 	@Override
 	public Optional<Personphone> get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(em.find(Personphone.class, id));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Personphone> getByPrefix(String pref){
+		Query query = em.createQuery("SELECT e FROM Personphone e WHERE phone LIKE "+"\'"+pref+"%\'");
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<Phonenumbertype> getTypes(){
+		Query query = em.createQuery("SELECT e FROM Phonenumbertype e");
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Personphone> getByType(String type){
+		Query query = em.createQuery("SELECT e FROM Personphone e WHERE phonenumbertype.name = " +"\'"+type+"\'");
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Personphone> getAll() {
-		Query query = entityManager.createQuery("SELECT e FROM Personphone e");
+		Query query = em.createQuery("SELECT e FROM Personphone e");
         return query.getResultList();
 	}
 
 	@Override
 	public void save(Personphone t) {
-		entityManager.persist(t);
+		em.persist(t);
 	}
 
 	@Override
 	public void update(Personphone t) {
-		entityManager.merge(t);
+		em.merge(t);
 	}
 
 	@Override
 	public void delete(Personphone t) {
-		entityManager.remove(t);
+		em.remove(t);
 	}
 
 }

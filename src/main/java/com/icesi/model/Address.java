@@ -26,14 +26,17 @@ public class Address implements Serializable {
 	@SequenceGenerator(name = "ADDRESS_ADDRESSID_GENERATOR", allocationSize = 1, sequenceName = "ADDRESS_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ADDRESSID_GENERATOR")
 	private Integer addressid;
+	
 	@NotBlank(groups = BasicInfo.class)
 	private String addressline1;
 
 	private String addressline2;
+	
 	@NotBlank(groups = BasicInfo.class)
 	private String city;
 
 	private Timestamp modifieddate;
+	
 	@NotBlank(groups = BasicInfo.class)
 	private String postalcode;
 
@@ -47,20 +50,9 @@ public class Address implements Serializable {
 	@NotNull(groups = BasicInfo.class)
 	private Stateprovince stateprovince;
 
-	// bi-directional many-to-one association to Businessentityaddress
-	//@OneToMany(mappedBy = "address")
-	//private List<Businessentityaddress> businessentityaddresses;
-
 	public Address() {
 	}
-/*
-	public Businessentityaddress addBusinessentityaddress(Businessentityaddress businessentityaddress) {
-		getBusinessentityaddresses().add(businessentityaddress);
-		businessentityaddress.setAddress(this);
 
-		return businessentityaddress;
-	}
-*/
 	public Integer getAddressid() {
 		return this.addressid;
 	}
@@ -72,11 +64,7 @@ public class Address implements Serializable {
 	public String getAddressline2() {
 		return this.addressline2;
 	}
-/*
-	public List<Businessentityaddress> getBusinessentityaddresses() {
-		return this.businessentityaddresses;
-	}
-*/
+
 	public String getCity() {
 		return this.city;
 	}
@@ -100,14 +88,7 @@ public class Address implements Serializable {
 	public Stateprovince getStateprovince() {
 		return this.stateprovince;
 	}
-/*
-	public Businessentityaddress removeBusinessentityaddress(Businessentityaddress businessentityaddress) {
-		getBusinessentityaddresses().remove(businessentityaddress);
-		businessentityaddress.setAddress(null);
 
-		return businessentityaddress;
-	}
-*/
 	public void setAddressid(Integer addressid) {
 		this.addressid = addressid;
 	}
@@ -119,11 +100,7 @@ public class Address implements Serializable {
 	public void setAddressline2(String addressline2) {
 		this.addressline2 = addressline2;
 	}
-/*
-	public void setBusinessentityaddresses(List<Businessentityaddress> businessentityaddresses) {
-		this.businessentityaddresses = businessentityaddresses;
-	}
-*/
+
 	public void setCity(String city) {
 		this.city = city;
 	}

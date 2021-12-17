@@ -21,6 +21,5 @@ public class PhoneNumbertypeServiceImp {
 	public Iterable<Phonenumbertype> findAll() {
 		return pntRepository.findAll();
 	}
-	
-	
+		
 }

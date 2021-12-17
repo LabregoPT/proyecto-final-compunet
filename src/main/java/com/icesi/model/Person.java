@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the person database table.
  *
@@ -76,11 +78,7 @@ public class Person implements Serializable {
 	// bi-directional many-to-one association to Emailaddress
 	@OneToMany(mappedBy = "person")
 	private List<Emailaddress> emailaddresses;
-	/*
-	// bi-directional one-to-one association to Password
-	@OneToOne(mappedBy = "person")
-	private Password password;
-	*/
+
 	// bi-directional one-to-one association to Businessentity
 	@OneToOne
 	@NotNull(groups = BasicInfo.class)
@@ -88,6 +86,7 @@ public class Person implements Serializable {
 	
 	// bi-directional many-to-one association to Personphone
 	@OneToMany(mappedBy = "person")
+	@JsonIgnore
 	private List<Personphone> personphones;
 
 	public Person() {
