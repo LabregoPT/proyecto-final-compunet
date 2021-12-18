@@ -1,6 +1,8 @@
 package com.icesi.boot;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -66,6 +68,7 @@ public class AuthenticationApplication {
 			ad1.setAddressline1("Calle 1");
 			ad1.setCity("Ciudad 1");
 			ad1.setPostalcode("121212");
+			ad1.setModifieddate(Timestamp.valueOf(LocalDateTime.of(2021, 12, 16, 0, 0)));
 			adp.save(ad1);
 			
 			Person pe1 = new Person();
