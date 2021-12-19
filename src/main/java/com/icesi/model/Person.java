@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -20,12 +19,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * The persistent class for the person database table.
- *
- */
+import lombok.Data;
+
+@Data
 @Entity
-@NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,13 +31,13 @@ public class Person implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_PERSONID_GENERATOR")
 	private long personid;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String additionalcontactinfo;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String demographics;
 	
-	@NotNull(groups = editInfo.class)
+	@NotNull(groups = EditInfo.class)
 	private Integer emailpromotion;
 	
 	@Size(min = 3, max = 20, groups = BasicInfo.class)
@@ -49,232 +46,47 @@ public class Person implements Serializable {
 	@Size(min = 3, max = 20, groups = BasicInfo.class)
 	private String lastname;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String middlename;
 	
 	@NotNull(groups = BasicInfo.class)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate modifieddate;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String namestyle;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String persontype;
 	
-	@NotNull(groups = editInfo.class)
+	@NotNull(groups = EditInfo.class)
 	private Integer rowguid;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String suffix;
 	
-	@NotBlank(groups = editInfo.class)
+	@NotBlank(groups = EditInfo.class)
 	private String title;
-	
-	// bi-directional many-to-one association to Businessentitycontact
-	@OneToMany(mappedBy = "person")
-	private List<Businessentitycontact> businessentitycontacts;
 
-	// bi-directional many-to-one association to Emailaddress
-	@OneToMany(mappedBy = "person")
-	private List<Emailaddress> emailaddresses;
-
-	// bi-directional one-to-one association to Businessentity
 	@OneToOne
 	@NotNull(groups = BasicInfo.class)
-	private Businessentity businessentity;
+	@JsonIgnore
+	private BusinessEntity businessentity;
 	
-	// bi-directional many-to-one association to Personphone
 	@OneToMany(mappedBy = "person")
 	@JsonIgnore
-	private List<Personphone> personphones;
+	private List<Phone> phones;
 
 	public Person() {
 	}
 
-	public Businessentitycontact addBusinessentitycontact(Businessentitycontact businessentitycontact) {
-		getBusinessentitycontacts().add(businessentitycontact);
-		businessentitycontact.setPerson(this);
-
-		return businessentitycontact;
+	public Phone addPhone(Phone phone) {
+		phones.add(phone);
+		return phone;
 	}
-
-	public Emailaddress addEmailaddress(Emailaddress emailaddress) {
-		getEmailaddresses().add(emailaddress);
-		emailaddress.setPerson(this);
-
-		return emailaddress;
-	}
-
-	public Personphone addPersonphone(Personphone personphone) {
-		getPersonphones().add(personphone);
-		personphone.setPerson(this);
-
-		return personphone;
-	}
-
-	public String getAdditionalcontactinfo() {
-		return this.additionalcontactinfo;
-	}
-
-	public Businessentity getBusinessentity() {
-		return this.businessentity;
-	}
-
-	public List<Businessentitycontact> getBusinessentitycontacts() {
-		return this.businessentitycontacts;
-	}
-
-	public long getPersonid() {
-		return this.personid;
-	}
-
-	public String getDemographics() {
-		return this.demographics;
-	}
-
-	public List<Emailaddress> getEmailaddresses() {
-		return this.emailaddresses;
-	}
-
-	public Integer getEmailpromotion() {
-		return this.emailpromotion;
-	}
-
-	public String getFirstname() {
-		return this.firstname;
-	}
-
-	public String getLastname() {
-		return this.lastname;
-	}
-
-	public String getMiddlename() {
-		return this.middlename;
-	}
-
-	public LocalDate getModifieddate() {
-		return this.modifieddate;
-	}
-
-	public String getNamestyle() {
-		return this.namestyle;
-	}
-	/*
-	public Password getPassword() {
-		return this.password;
-	}
-	*/
-	public List<Personphone> getPersonphones() {
-		return this.personphones;
-	}
-
-	public String getPersontype() {
-		return this.persontype;
-	}
-
-	public Integer getRowguid() {
-		return this.rowguid;
-	}
-
-	public String getSuffix() {
-		return this.suffix;
-	}
-
-	public String getTitle() {
-		return this.title;
-	}
-
-	public Businessentitycontact removeBusinessentitycontact(Businessentitycontact businessentitycontact) {
-		getBusinessentitycontacts().remove(businessentitycontact);
-		businessentitycontact.setPerson(null);
-
-		return businessentitycontact;
-	}
-
-	public Emailaddress removeEmailaddress(Emailaddress emailaddress) {
-		getEmailaddresses().remove(emailaddress);
-		emailaddress.setPerson(null);
-
-		return emailaddress;
-	}
-
-	public Personphone removePersonphone(Personphone personphone) {
-		getPersonphones().remove(personphone);
-		personphone.setPerson(null);
-
-		return personphone;
-	}
-
-	public void setAdditionalcontactinfo(String additionalcontactinfo) {
-		this.additionalcontactinfo = additionalcontactinfo;
-	}
-
-	public void setBusinessentity(Businessentity businessentity) {
-		this.businessentity = businessentity;
-	}
-
-	public void setBusinessentitycontacts(List<Businessentitycontact> businessentitycontacts) {
-		this.businessentitycontacts = businessentitycontacts;
-	}
-
-	public void setPersonid(long businessentityid) {
-		this.personid = businessentityid;
-	}
-
-	public void setDemographics(String demographics) {
-		this.demographics = demographics;
-	}
-
-	public void setEmailaddresses(List<Emailaddress> emailaddresses) {
-		this.emailaddresses = emailaddresses;
-	}
-
-	public void setEmailpromotion(Integer emailpromotion) {
-		this.emailpromotion = emailpromotion;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public void setMiddlename(String middlename) {
-		this.middlename = middlename;
-	}
-
-	public void setModifieddate(LocalDate modifieddate) {
-		this.modifieddate = modifieddate;
-	}
-
-	public void setNamestyle(String namestyle) {
-		this.namestyle = namestyle;
-	}
-	/*
-	public void setPassword(Password password) {
-		this.password = password;
-	}
-	*/
-	public void setPersonphones(List<Personphone> personphones) {
-		this.personphones = personphones;
-	}
-
-	public void setPersontype(String persontype) {
-		this.persontype = persontype;
-	}
-
-	public void setRowguid(Integer rowguid) {
-		this.rowguid = rowguid;
-	}
-
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public Phone removePhone(Phone phone) {
+		phones.remove(phone);
+		phone.setPerson(null);
+		return phone;
 	}
 }

@@ -25,10 +25,6 @@ public class AdminRestController {
 	private PersonService personService;
 	private StateProvinceService spService;
 
-	// Business Entities
-	//
-	// ----------------------------------------------------
-	//
 	@Autowired
 	public AdminRestController(PersonService personService, BusinessEntityService beService, AddressService adService,
 			StateProvinceService spService) {
@@ -38,22 +34,34 @@ public class AdminRestController {
 		this.spService = spService;
 	}
 
+
+	// Business Entities
+	//
+	// ----------------------------------------------------
+	//
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/entities", method = RequestMethod.GET)
-	public ResponseEntity<Businessentity> listEntities() {
-		List<Businessentity> entities = ((List<Businessentity>) beService.findAll());
+	public ResponseEntity<BusinessEntity> listEntities() {
+		List<BusinessEntity> entities = ((List<BusinessEntity>) beService.findAll());
 		return new ResponseEntity(entities, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/entities", method = RequestMethod.POST)
-	public ResponseEntity<Businessentity> createEntity(@Validated(BasicInfo.class) @RequestBody Businessentity be) {
+	public ResponseEntity<BusinessEntity> createEntity(@Validated(BasicInfo.class) @RequestBody BusinessEntity be) {
 		beService.save(be);
-		return new ResponseEntity<Businessentity>(be, HttpStatus.CREATED);
+		return new ResponseEntity<BusinessEntity>(be, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/entities/{id}", method = RequestMethod.GET)
+	public ResponseEntity<BusinessEntity> getEntity(@PathVariable(value = "id") long id) {
+		BusinessEntity be = beService.findById(id).get();
+		return new ResponseEntity<BusinessEntity>(be, HttpStatus.OK);
 	}
 
 	@PutMapping("/entities/{id}")
-	public ResponseEntity<Businessentity> updateEntity(@PathVariable(value = "id") long id,
-			@Validated(BasicInfo.class) @RequestBody Businessentity be) {
+	public ResponseEntity<BusinessEntity> updateEntity(@PathVariable(value = "id") long id,
+			@Validated(BasicInfo.class) @RequestBody BusinessEntity be) {
 
 		beService.update(be, id);
 		return ResponseEntity.ok(be);
@@ -69,6 +77,7 @@ public class AdminRestController {
 		Address ad = addressService.findById(id);
 		return new ResponseEntity<Address>(ad, HttpStatus.OK);
 	}
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
@@ -125,7 +134,7 @@ public class AdminRestController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/persons/filter={id}", method = RequestMethod.GET)
 	public ResponseEntity<Person> listPersonsByID(@PathVariable(value = "id") long id) {
-		List<Person> persons = ((List<Person>) personService.findAllById(id));
+		List<Person> persons = ((List<Person>) personService.findByEntityId(id));
 		return new ResponseEntity(persons, HttpStatus.OK);
 	}
 
@@ -163,27 +172,27 @@ public class AdminRestController {
 	//
 
 	@RequestMapping(value = "/states/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Stateprovince> getState(@PathVariable(value = "id") Integer id) {
-		Stateprovince sp = spService.findById(id).get();
-		return new ResponseEntity<Stateprovince>(sp, HttpStatus.OK);
+	public ResponseEntity<StateProvince> getState(@PathVariable(value = "id") Integer id) {
+		StateProvince sp = spService.findById(id).get();
+		return new ResponseEntity<StateProvince>(sp, HttpStatus.OK);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/states", method = RequestMethod.GET)
-	public ResponseEntity<Stateprovince> listStates() {
-		List<Stateprovince> states = ((List<Stateprovince>) spService.findAll());
+	public ResponseEntity<StateProvince> listStates() {
+		List<StateProvince> states = ((List<StateProvince>) spService.findAll());
 		return new ResponseEntity(states, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/states", method = RequestMethod.POST)
-	public ResponseEntity<Stateprovince> createState(@Validated(BasicInfo.class) @RequestBody Stateprovince sp) {
+	public ResponseEntity<StateProvince> createState(@Validated(BasicInfo.class) @RequestBody StateProvince sp) {
 		spService.save(sp);
-		return new ResponseEntity<Stateprovince>(sp, HttpStatus.CREATED);
+		return new ResponseEntity<StateProvince>(sp, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/states/{id}")
-	public ResponseEntity<Stateprovince> updateState(@PathVariable(value = "id") Integer id,
-			@Validated(BasicInfo.class) @RequestBody Stateprovince sp) {
+	public ResponseEntity<StateProvince> updateState(@PathVariable(value = "id") Integer id,
+			@Validated(BasicInfo.class) @RequestBody StateProvince sp) {
 		spService.update(sp, id);
 		return ResponseEntity.ok(sp);
 	}

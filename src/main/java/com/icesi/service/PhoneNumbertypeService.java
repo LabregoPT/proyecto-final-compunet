@@ -3,22 +3,21 @@ package com.icesi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.icesi.model.Phonenumbertype;
+import com.icesi.model.PhoneNumberType;
 import com.icesi.repository.PhoneNumberTypeRepository;
 
-@Service
-public class PhoneNumbertypeServiceImp {
+public class PhoneNumbertypeService {
 	
 	
 	private PhoneNumberTypeRepository pntRepository;
 	
 	@Autowired
-	public PhoneNumbertypeServiceImp(PhoneNumberTypeRepository pntRepository) {
+	public PhoneNumbertypeService(PhoneNumberTypeRepository pntRepository) {
 		this.pntRepository = pntRepository;
 	}
 	
 	
-	public Iterable<Phonenumbertype> findAll() {
+	public Iterable<PhoneNumberType> findAll() {
 		return pntRepository.findAll();
 	}
 		

@@ -10,15 +10,13 @@ import com.icesi.model.Person;
 import com.icesi.repository.BusinessEntityRepository;
 import com.icesi.repository.PersonRepository;
 
-
-@Service
-public class PersonServiceImp {
+public class PersonService {
 	
 	private PersonRepository personRepository;
 	private BusinessEntityRepository beRepository;
 
 	@Autowired
-	public PersonServiceImp(PersonRepository personRepository,BusinessEntityRepository beRepository) {
+	public PersonService(PersonRepository personRepository,BusinessEntityRepository beRepository) {
 		this.personRepository = personRepository;
 		this.beRepository = beRepository;
 	}

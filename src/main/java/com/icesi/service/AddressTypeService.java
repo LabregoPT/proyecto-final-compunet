@@ -5,39 +5,37 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.icesi.model.Addresstype;
+import com.icesi.model.AddressType;
 import com.icesi.repository.AddressTypeRepository;
 
-
-@Service
-public class AddressTypeServiceImp {
+public class AddressTypeService {
 	
 	private AddressTypeRepository addressTRepository;
 
 	@Autowired
-	public AddressTypeServiceImp( AddressTypeRepository addressTRepository) {
+	public AddressTypeService( AddressTypeRepository addressTRepository) {
 		this.addressTRepository = addressTRepository;
 	}
 	
-	public Addresstype save(Addresstype ad) {
+	public AddressType save(AddressType ad) {
 		return addressTRepository.save(ad);
 	}
 	
-	public Iterable<Addresstype> findAll() {
+	public Iterable<AddressType> findAll() {
 		return addressTRepository.findAll();
 	}
 
-	public Optional<Addresstype> findById(Integer id) {
+	public Optional<AddressType> findById(Integer id) {
 		return addressTRepository.findById(id);
 	}
 
-	public void delete(Addresstype adt) {
+	public void delete(AddressType adt) {
 		addressTRepository.delete(adt);
 		
 	}
 
-	public void update(Addresstype adt) {
-		Addresstype modAd = addressTRepository.findById(adt.getAddresstypeid()).get();
+	public void update(AddressType adt) {
+		AddressType modAd = addressTRepository.findById(adt.getAddresstypeid()).get();
 		modAd.setName(adt.getName());
 		
 		

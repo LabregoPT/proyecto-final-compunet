@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.icesi.model.Stateprovince;
+import com.icesi.model.StateProvince;
 
-public interface StateProvinceRepository extends JpaRepository<Stateprovince, Integer>{
+public interface StateProvinceRepository extends JpaRepository<StateProvince, Integer>{
 	
 	@Query
-	List<Stateprovince> findByStateprovinceid(Integer stateprovinceid);
+	List<StateProvince> findByStateprovinceid(Integer stateprovinceid);
 	
 	@Query
-	List<Stateprovince> findByName(String name);
+	List<StateProvince> findByName(String name);
 }

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.icesi.businessDelegate.AdminDelegate;
 import com.icesi.model.Address;
 import com.icesi.model.BasicInfo;
-import com.icesi.model.Businessentity;
+import com.icesi.model.BusinessEntity;
 import com.icesi.model.Person;
-import com.icesi.model.Stateprovince;
+import com.icesi.model.StateProvince;
 
 
 @Controller
@@ -108,12 +108,12 @@ public class AdministratorController {
 	
 	@GetMapping("/admin/address/addState")
 	public String addState(Model model) {
-		model.addAttribute("stateprovince", new Stateprovince());
+		model.addAttribute("stateprovince", new StateProvince());
 		return "admin/addState";
 	}
 	
 	@PostMapping("/admin/address/addState")
-	public String saveState(@Validated(BasicInfo.class) Stateprovince sp, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
+	public String saveState(@Validated(BasicInfo.class) StateProvince sp, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("stateprovinces", ad.getAllStates());
 			return "admin/addState";
@@ -126,7 +126,7 @@ public class AdministratorController {
 	
 	@GetMapping("/admin/address/editState/{id}")
 	public String showUpdateForm2(@PathVariable("id") Integer id, Model model) {
-		Stateprovince sp = ad.getState(id);
+		StateProvince sp = ad.getState(id);
 		if (sp == null)
 			throw new IllegalArgumentException("Invalid user Id:" + id);
 		
@@ -136,7 +136,7 @@ public class AdministratorController {
 	
 	@PostMapping("/admin/address/editState/{id}")
 	public String updateState(@PathVariable("id") Integer id,
-			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) Stateprovince sp, BindingResult bindingResult, Model model) {
+			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) StateProvince sp, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("stateprovinces", ad.getAllStates());
 			
@@ -225,13 +225,13 @@ public class AdministratorController {
 		
 	@GetMapping("/admin/entity/addEntity")
 	public String addEntity(Model model) {
-		model.addAttribute("businessentity", new Businessentity());
+		model.addAttribute("businessentity", new BusinessEntity());
 		return "admin/addEntity";
 	}
 	
 	
 	@PostMapping("/admin/entity/addEntity")
-	public String saveEntity(@Validated(BasicInfo.class) Businessentity be, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
+	public String saveEntity(@Validated(BasicInfo.class) BusinessEntity be, BindingResult bindingResult, Model model, @RequestParam(value = "action", required = true) String action) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("businessentities", ad.getAllEntities());
 			return "admin/addEntity";
@@ -254,7 +254,7 @@ public class AdministratorController {
 	
 	@PostMapping("/admin/entity/editEntity/{id}")
 	public String updateEntity(@PathVariable("id") Integer id,
-			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) Businessentity be, BindingResult bindingResult, Model model) {
+			@RequestParam(value = "action", required = true) String action, @Validated(BasicInfo.class) BusinessEntity be, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 		
 			

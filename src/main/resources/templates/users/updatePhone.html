@@ -20,7 +20,7 @@
 		<h2 class="mb-5">Actualizar Telefonos</h2>
 		<div class="row">
 			<div class="col-md-6">
-			<form action="#" th:action="@{/user/phones/editP/{id}(id=${personphone.id})}" th:object="${personphone}"
+			<form action="#" th:action="@{/user/phones/editP/{id}(id=${phone.id})}" th:object="${phone}"
 					method="post">	
 				<div class="row">
 				
@@ -29,28 +29,28 @@
 								th:field="*{person}">
 								<option th:each="per : ${persons}" th:value="${per.personid}"
 									class="form-control" th:text="${per.firstname}"
-									th:selected="${personphone.person=per}"></option>
+									th:selected="${phone.person=per}"></option>
 							</select> <span th:if="${#fields.hasErrors('person')}"
 								th:errors="*{person}" class="text-danger"></span>
 					</div>
 					
 					<div class="form-group col-md-6">
 							<label for="phonenumbertype" class="col-form-label">Tipo de Telefono</label> <select
-								th:field="*{phonenumbertype}">
+								th:field="*{type}">
 								<option th:each="pn : ${phonenumbertypes}" th:value="${pn.phonenumbertypeid}"
 									class="form-control" th:text="${pn.name}"
-									th:selected="${personphone.phonenumbertype=pn}"></option>
-							</select> <span th:if="${#fields.hasErrors('phonenumbertype')}"
+									th:selected="${phone.type=pn}"></option>
+							</select> <span th:if="${#fields.hasErrors('type')}"
 								th:errors="*{phonenumbertypeid}" class="text-danger"></span>
 					</div>
 					
 					
 					<div class="form-group col-md-6">
 						<label for="phone" class="col-form-label">Telefono</label> <input
-							type="text" th:field="*{phone}" class="form-control" id="phone"
+							type="text" th:field="*{phonenumber}" class="form-control" id="phonenumber"
 							placeholder="numero"> 
 							<span
-								th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+								th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"
 								class="text-danger">
 							</span>
 					</div>

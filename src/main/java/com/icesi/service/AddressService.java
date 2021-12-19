@@ -11,14 +11,13 @@ import com.icesi.model.Address;
 import com.icesi.repository.AddressRepository;
 import com.icesi.repository.StateProvinceRepository;
 
-@Service
-public class AddressServiceImp {
+public class AddressService {
 	
 	private AddressRepository addressRepository;
 	private StateProvinceRepository spRepository;
 
 	@Autowired
-	public AddressServiceImp(AddressRepository addressRepository,StateProvinceRepository spRepository) {
+	public AddressService(AddressRepository addressRepository,StateProvinceRepository spRepository) {
 		this.addressRepository = addressRepository;
 		this.spRepository = spRepository;
 	}

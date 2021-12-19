@@ -8,25 +8,24 @@ import org.springframework.stereotype.Service;
 
 import com.icesi.model.Address;
 
-import com.icesi.model.Stateprovince;
+import com.icesi.model.StateProvince;
 import com.icesi.repository.StateProvinceRepository;
 
-@Service
-public class StateProvinceServiceImp {
+public class StateProvinceService {
 	
 	
 	private StateProvinceRepository spRepository;
 
 	@Autowired
-	public StateProvinceServiceImp(StateProvinceRepository spRepository) {
+	public StateProvinceService(StateProvinceRepository spRepository) {
 		this.spRepository = spRepository;
 	}
 	
-	public Stateprovince save(Stateprovince sp) {
+	public StateProvince save(StateProvince sp) {
 		return spRepository.save(sp);
 	}
 	
-	public Iterable<Stateprovince> findAll() {
+	public Iterable<StateProvince> findAll() {
 		return spRepository.findAll();
 	}
 	
@@ -35,7 +34,7 @@ public class StateProvinceServiceImp {
 		return spRepository.getById(id).getAddresses();
 	}
 	
-	public void delete(Stateprovince sp) {
+	public void delete(StateProvince sp) {
 		spRepository.delete(sp);
 
 	}
@@ -44,13 +43,13 @@ public class StateProvinceServiceImp {
 		spRepository.deleteAll();
 	}
 	
-	public Optional<Stateprovince> findById(Integer id) {
+	public Optional<StateProvince> findById(Integer id) {
 
 		return spRepository.findById(id);
 	}
 	
-	public void update(Stateprovince sp, Integer id) {
-		Stateprovince modSp = spRepository.findById(id).get();
+	public void update(StateProvince sp, Integer id) {
+		StateProvince modSp = spRepository.findById(id).get();
 		modSp.setName(sp.getName());
 	
 		spRepository.save(modSp);
