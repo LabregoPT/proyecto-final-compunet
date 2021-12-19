@@ -1,4 +1,4 @@
-package com.icesi.integration.test;
+package com.icesi.test.integration;
 
 import static org.junit.jupiter.api.Assertions.*;
 

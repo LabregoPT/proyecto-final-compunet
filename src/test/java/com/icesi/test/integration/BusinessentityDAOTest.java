@@ -1,4 +1,4 @@
-package com.icesi.integration.test;
+package com.icesi.test.integration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -50,7 +50,7 @@ public class UserDelegate {
 		return template.exchange(BASE_URL + "baddresses/" + id, HttpMethod.PUT, entity, String.class).getBody();
 	}
 
-	// Phone Number Types
+	// Phone Number & Address Types
 	//
 	// ----------------------------------------------------
 	//
